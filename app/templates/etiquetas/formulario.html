@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                {{ titulo }}
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre de la Etiqueta</label>
+                        {{ form.nombre }}
+                        <div class="form-text">Ej: Oferta, Nuevo, Eco-Friendly...</div>
+                    </div>
+
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{% url 'lista_etiquetas' %}" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar Etiqueta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

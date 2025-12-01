@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Listado de Productos</h2>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form class="d-flex" method="get">
+            <input class="form-control me-2" type="search" name="q" placeholder="Buscar por nombre...">
+            <select name="categoria" class="form-select me-2">
+                <option value="">Todas las categorías</option>
+                {% for c in categorias %}
+                <option value="{{ c.id }}">{{ c.nombre }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-outline-success" type="submit">Filtrar</button>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="{% url 'crear_producto' %}" class="btn btn-success">Crear Producto</a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Etiquetas</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.categoria.nombre }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>
+                {% for tag in producto.etiquetas.all %}
+                    <span class="badge bg-secondary">{{ tag.nombre }}</span>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-sm btn-info">Ver</a>
+                <a href="{% url 'editar_producto' producto.id %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        Producto #{{ producto.id }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ producto.nombre }} <span class="badge bg-primary">{{ producto.categoria.nombre }}</span></h5>
+        <p class="card-text">{{ producto.descripcion }}</p>
+        <p class="h4 text-success">${{ producto.precio }}</p>
+        
+        <hr>
+        <h6>Detalles Técnicos:</h6>
+        {% if producto.detalle %}
+            <ul>
+                <li><strong>Peso:</strong> {{ producto.detalle.peso_kg }} kg</li>
+                <li><strong>Dimensiones:</strong> {{ producto.detalle.dimensiones }}</li>
+            </ul>
+        {% else %}
+            <p class="text-muted">Sin detalles registrados.</p>
+        {% endif %}
+
+        <h6>Etiquetas:</h6>
+        <div>
+            {% for tag in producto.etiquetas.all %}
+                <span class="badge bg-dark">{{ tag.nombre }}</span>
+            {% empty %}
+                <span class="text-muted">Sin etiquetas</span>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-3">
+            <a href="{% url 'lista_productos' %}" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

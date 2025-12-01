@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ titulo }}</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Datos Generales</h4>
+            {{ form_prod.as_p }}
+        </div>
+        <div class="col-md-6">
+            <h4>Detalles Específicos (1 a 1)</h4>
+            {{ form_det.as_p }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'lista_productos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
